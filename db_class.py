@@ -1,8 +1,10 @@
 import pyodbc
 import requests
 
+# Define a class to access db
+
 class Connectdb():
-    # have the characterstics to access the db
+    # have the characteristics to access the db
     def __init__(self, server = 'localhost, 1433', database = 'SpartaGames', username = 'SA', password = 'Passw0rd2018'):
         self.server = server
         self.database = database
