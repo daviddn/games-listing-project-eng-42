@@ -17,7 +17,7 @@ db_games = Games()
 start_input = ''
 
 while start_input != 'neither':
-    start_input = input('Welcome! This is SpartaGames! If this is your FIRST time here, let us know! Would you like to BROWSE through our game listings, ADD a listing yourself, DELETE or UPDATE one of your listings, or NEITHER? ').lower()
+    start_input = input('Welcome! This is SpartaGames! If this is you are new here, feel free to BROWSE our game listings, or list your FIRST game listing! For our existing users, ADD a listing yourself, DELETE or UPDATE one of your listings, or NEITHER? ').lower()
     if start_input == 'add':
         login_input = input('Great! What is your username? ').lower()
         for user in db_games.seller_list():
