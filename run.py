@@ -12,12 +12,12 @@ db_games = Games()
 
 # print(db_games.add_lat_and_long('frensis97ferrari'))
 
-# db_games.destroy_one('frged')
+# db_games.destroy_one('gta')
 
 start_input = ''
 
 while start_input != 'neither':
-    start_input = input('Welcome! This is SpartaGames! Would you like to BROWSE through our game listings, ADD a listing yourself, DELETE or UPDATE one of your listings, or NEITHER? ').lower()
+    start_input = input('Welcome! This is SpartaGames! If this is your FIRST time here, let us know! Would you like to BROWSE through our game listings, ADD a listing yourself, DELETE or UPDATE one of your listings, or NEITHER? ').lower()
     if start_input == 'add':
         login_input = input('Great! What is your username? ').lower()
         for user in db_games.seller_list():
@@ -33,6 +33,7 @@ while start_input != 'neither':
                     if q_lat_long == 'yes':
                         db_games.add_lat_and_long(q_game)
                         print('Latitude and Longitude added!')
+                        break
                     elif q_lat_long == 'no':
                         print('No problem!')
                         break
@@ -54,6 +55,23 @@ while start_input != 'neither':
                 game_input = input('For which game would you like to update the detail? ')
                 db_games.update_one(column_input, value_input, game_input)
                 print('Game listing updated!')
+                break
+    elif start_input == 'first':
+        q_seller = input('First timer! What would you like your username to be? ').lower()
+        q_phone = input('What is your phone number? ')
+        q_position = input('What is your postcode? ')
+        q_game = input('What game would you like to sell? ')
+        q_price = input('For how much would you like to sell your game? ')
+        new_game = db_games.new(q_game, q_seller, q_phone, q_price, q_position, '', '')
+        q_lat_long = ''
+        while q_lat_long != 'no':
+            q_lat_long = input('Game listed! Would you like to add latitude and longitude? ').lower()
+            if q_lat_long == 'yes':
+                db_games.add_lat_and_long(q_game)
+                print('Latitude and Longitude added!')
+                break
+            elif q_lat_long == 'no':
+                print('No problem!')
                 break
     elif start_input == 'browse':
         db_games.read_all()
