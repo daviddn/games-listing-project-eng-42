@@ -42,6 +42,6 @@ class Games(Connectdb):
         converted_position = request_position.json()
         latitude = converted_position['result']['latitude']
         longitude = converted_position['result']['longitude']
-        self.update_one('latitude', {latitude}, name)
-        self.update_one('longitude', {longitude}, name)
+        self.update_one('latitude', latitude, name)
+        self.update_one('longitude', longitude, name)
         return latitude, longitude
