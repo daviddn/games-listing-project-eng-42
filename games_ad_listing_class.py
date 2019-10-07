@@ -36,13 +36,17 @@ class Games(Connectdb):
         self.conn_db.commit()
 
     # Gets one position from table
-    def read_position(self, name):
+    def read_position_seller(self, name):
+        query = self.filter_query(f"SELECT Position FROM GamesList WHERE Seller = '{name}'").fetchone()[0]
+        return query
+
+    def read_position_game(self, name):
         query = self.filter_query(f"SELECT Position FROM GamesList WHERE Game = '{name}'").fetchone()[0]
         return query
 
     # Returns position info from looking up postcode returned from table on postcodes.io api
     def add_lat_and_long(self, name):
-        got_position = self.read_position(name)
+        got_position = self.read_position_game(name)
         request_position = requests.get(f"http://api.postcodes.io/postcodes/{got_position}".lower().strip())
         converted_position = request_position.json()
         latitude = converted_position['result']['latitude']
@@ -50,3 +54,24 @@ class Games(Connectdb):
         self.update_one('latitude', latitude, name)
         self.update_one('longitude', longitude, name)
         return latitude, longitude
+
+    def convertTuple(self, tup):
+        str = ''.join(tup)
+        return str
+
+    # Sets up seller list
+    def seller_list(self):
+        query = self.filter_query(f"SELECT Seller FROM GamesList")
+        seller_list = []
+        while True:
+            for record in query:
+                converted_query = self.convertTuple(record)
+                seller_list.append(converted_query)
+                if record is None:
+                    break
+            return seller_list
+
+    # Gets one phone from table
+    def read_phone(self, name):
+        query = self.filter_query(f"SELECT Phone FROM GamesList WHERE Seller = '{name}'").fetchone()[0]
+        return query
