@@ -12,12 +12,12 @@ db_games = Games()
 
 # print(db_games.add_lat_and_long('frensis97ferrari'))
 
-# db_games.destroy_one('uhfsd')
+# db_games.destroy_one('frged')
 
 start_input = ''
 
 while start_input != 'neither':
-    start_input = input('Welcome! This is SpartaGames! Would you like to BROWSE through our game listings, ADD a listing yourself, or NEITHER? ').lower()
+    start_input = input('Welcome! This is SpartaGames! Would you like to BROWSE through our game listings, ADD a listing yourself, DELETE or UPDATE one of your listings, or NEITHER? ').lower()
     if start_input == 'add':
         login_input = input('Great! What is your username? ').lower()
         for user in db_games.seller_list():
@@ -32,15 +32,29 @@ while start_input != 'neither':
                     q_lat_long = input('Game listed! Would you like to add latitude and longitude? ').lower()
                     if q_lat_long == 'yes':
                         db_games.add_lat_and_long(q_game)
+                        print('Latitude and Longitude added!')
                     elif q_lat_long == 'no':
                         print('No problem!')
                         break
                     else:
                         print("Didn't quite get that...")
-            else:
-                print('Login details not recognized, redirecting to welcome page...')
+    elif start_input == 'delete':
+        login_input = input('Great! What is your username? ').lower()
+        for user in db_games.seller_list():
+            if user in login_input:
+                delete_input = input('What game would you like to delete? ').lower()
+                db_games.destroy_one(delete_input)
                 break
-
+    elif start_input == 'update':
+        login_input = input('Great! What is your username? ').lower()
+        for user in db_games.seller_list():
+            if user in login_input:
+                column_input = input('What detail would you like to update? ').lower().capitalize()
+                value_input = input('What would you like to update the detail to? ')
+                game_input = input('For which game would you like to update the detail? ')
+                db_games.update_one(column_input, value_input, game_input)
+                print('Game listing updated!')
+                break
     elif start_input == 'browse':
         db_games.read_all()
     elif start_input == 'neither':

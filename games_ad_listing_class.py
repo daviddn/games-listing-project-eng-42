@@ -55,6 +55,7 @@ class Games(Connectdb):
         self.update_one('longitude', longitude, name)
         return latitude, longitude
 
+    # Tuple to string converter
     def convertTuple(self, tup):
         str = ''.join(tup)
         return str
