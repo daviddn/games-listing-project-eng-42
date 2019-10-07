@@ -6,12 +6,12 @@ class Games(Connectdb):
 
 # Define methods
 
-    # Shows one game in the table
+    # Shows one game ad in the table
     def read_one(self, game):
         query = self.filter_query(f"SELECT * FROM GamesList WHERE Game = '{game}'").fetchone()
         return query
 
-    # Shows all games in the table
+    # Shows all game ads in the table
     def read_all(self):
         query = self.filter_query(f"SELECT * FROM GamesList")
         while True:
@@ -23,4 +23,9 @@ class Games(Connectdb):
     # Creates new game ad in the table
     def new(self, game, seller, phone, price, position, latitude, longitude):
         self.filter_query(f"INSERT INTO GamesList (Game, Seller, Phone, Price, Position, Latitude, Longitude) VALUES {game, seller, phone, price, position, latitude, longitude}")
+        self.conn_db.commit()
+
+    # Update one game ad in the table
+    def update_one(self, column, updated_value, name):
+        self.filter_query(f"UPDATE GamesList SET {column} = '{updated_value}' WHERE Game = '{name}'")
         self.conn_db.commit()
