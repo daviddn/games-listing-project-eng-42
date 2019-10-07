@@ -9,3 +9,5 @@ db_games = Games()
 # db_games.new('God of War', 'frensis97ferrari', '09182736450', '30', 'EC1V 0ES', '', '')
 
 # db_games.update_one('Game','GTA V', 'God of War')
+
+# print(db_games.add_lat_and_long('FIFA 20'))

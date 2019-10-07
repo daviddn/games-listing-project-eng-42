@@ -29,3 +29,19 @@ class Games(Connectdb):
     def update_one(self, column, updated_value, name):
         self.filter_query(f"UPDATE GamesList SET {column} = '{updated_value}' WHERE Game = '{name}'")
         self.conn_db.commit()
+
+    # Gets one position from table
+    def read_position(self, name):
+        query = self.filter_query(f"SELECT Position FROM GamesList WHERE Game = '{name}'").fetchone()[0]
+        return query
+
+    # Returns position info from looking up postcode returned from table on postcodes.io api
+    def add_lat_and_long(self, name):
+        got_position = self.read_position(name)
+        request_position = requests.get(f"http://api.postcodes.io/postcodes/{got_position}".lower().strip())
+        converted_position = request_position.json()
+        latitude = converted_position['result']['latitude']
+        longitude = converted_position['result']['longitude']
+        self.update_one('latitude', {latitude}, name)
+        self.update_one('longitude', {longitude}, name)
+        return latitude, longitude
