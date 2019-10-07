@@ -30,6 +30,11 @@ class Games(Connectdb):
         self.filter_query(f"UPDATE GamesList SET {column} = '{updated_value}' WHERE Game = '{name}'")
         self.conn_db.commit()
 
+    # Deletes one recipe from the recipe table
+    def destroy_one(self, name):
+        self.filter_query(f"DELETE FROM GamesList WHERE Game = '{name}'")
+        self.conn_db.commit()
+
     # Gets one position from table
     def read_position(self, name):
         query = self.filter_query(f"SELECT Position FROM GamesList WHERE Game = '{name}'").fetchone()[0]

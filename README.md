@@ -21,4 +21,6 @@ Create a table for second hand games listed by users for sale with the following
     
     As a User I can Update a game ad
     
+    As a User I can Delete a game ad
+    
     As a User I can Add latitude and longitude to a game add through postcode.io api

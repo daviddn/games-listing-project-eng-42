@@ -10,4 +10,6 @@ db_games = Games()
 
 # db_games.update_one('Game','GTA V', 'God of War')
 
-print(db_games.add_lat_and_long('FIFA 20'))
+# print(db_games.add_lat_and_long('FIFA 20'))
+
+# db_games.destroy_one('GTA V')
